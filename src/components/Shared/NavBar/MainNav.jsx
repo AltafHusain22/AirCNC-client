@@ -2,6 +2,7 @@ import React from 'react';
 import Container from '../Container/Container';
 import Logo from './Logo';
 import Search from './Search';
+import MenuItems from './MenuItems';
 
 const MainNav = () => {
 	return (
@@ -11,7 +12,7 @@ const MainNav = () => {
 					<div className='flex justify-between items-center gap-3 md:gap-0'>
 						<Logo></Logo>
 						<Search></Search>
-						<div>avatar</div>
+						<MenuItems></MenuItems>
 					</div>
 				</Container>
 			</div>
