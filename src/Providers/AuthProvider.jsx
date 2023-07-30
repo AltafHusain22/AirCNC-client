@@ -11,6 +11,7 @@ import {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
+	updateProfile,
 	
   } from "firebase/auth";
 
@@ -38,45 +39,53 @@ const AuthProvider = ({children}) => {
 
 	//google signIn
 	const googleSignIn = () => { 
-		loading(true);
+		setLoading(true);
 		return signInWithPopup(auth, provider)
+	}
+
+
+	// update user profile 
+	const updateUserProfileInfo = (displayName , photoURL) => { 
+		return updateProfile(auth.currentUser {
+			displayName: displayName,
+			photoURL: photoURL
+		})
 	}
 
 	// logOut
 	const logOut = () => { 
 		setLoading(true);
-		signOut(auth)
+		return signOut(auth)
 	}
 
 	//password Reset
 
 	const passwordReset = (email) => { 
-		sendPasswordResetEmail(auth, email)
+		return sendPasswordResetEmail(auth, email)
 	}
 
 	// user monitoring
-	useEffect(() => { 
-		const unsubscribe = onAuthStateChanged(auth, (currentUser) => { 
-			if (currentUser) { 
-				setUser(currentUser)
-			}
-			setLoading(false)
-		})
-
-		return unsubscribe()
-
-
-	}, [])
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
+		  setUser(loggedUser);
+		  setLoading(false);
+		});
+		return () => {
+		  unsubscribe();
+		};
+	  }, []);
 
 
 	const authInfo = {
 		user, 
 		loading, 
+		setLoading,
 		createUser,
 		signIn,
 		googleSignIn,
 		logOut,
-		passwordReset
+		passwordReset,
+		updateUserProfileInfo
 
 	}
 

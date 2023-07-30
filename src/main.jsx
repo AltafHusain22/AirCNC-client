@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Toaster } from 'react-hot-toast'
 import './index.css'
 import {
   createBrowserRouter,
@@ -10,6 +11,7 @@ import AuthProvider from './Providers/AuthProvider';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
+
 
 
 const router = createBrowserRouter([
@@ -37,6 +39,20 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
+      <Toaster toastOptions={{
+    success: {
+      style: {
+        background: 'green',
+        color: 'white'
+      },
+    },
+    error: {
+      style: {
+        background: 'red',
+        color: 'white'
+      },
+    },
+  }}/>
      <RouterProvider router={router} />
     </AuthProvider>
     

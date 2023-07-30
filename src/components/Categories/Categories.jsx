@@ -3,7 +3,6 @@ import { categories } from './categoriesData';
 import CategoryBox from './CategoryBox';
 
 const Categories = () => {
-	console.log(categories)
 	return (
 		<div className='flex flex-row items-center justify-between overflow-x-auto pt-4'>
 			{

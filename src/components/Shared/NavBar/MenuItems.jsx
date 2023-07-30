@@ -1,8 +1,10 @@
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useCallback, useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../Providers/AuthProvider';
 import Avatar from './Avatar';
+import { toast } from 'react-hot-toast';
+
 
 const MenuItems = () => {
 	const { user, logOut } = useContext(AuthContext)
@@ -10,6 +12,18 @@ const MenuItems = () => {
 	const toggleOpen = useCallback(() => {
 	  setIsOpen(value => !value)
 	}, [])
+
+	const navigate = useNavigate()
+
+	const handleLogOut =() => { 
+		logOut()
+		.then(() => {
+			toast.success('signOut successfully')
+			navigate('/login')
+		  }).catch((error) => {
+			console.log(error.message)
+		  });
+	}
 	return (
 	  <div className='relative'>
 		<div className='flex flex-row items-center gap-3'>
@@ -37,7 +51,7 @@ const MenuItems = () => {
 			  </Link>
 			  {user ? (
 				<div
-				  onClick={logOut}
+				  onClick={handleLogOut}
 				  className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
 				>
 				  Logout
