@@ -1,11 +1,9 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
 import { useContext, useRef } from 'react'
 import { AuthContext } from '../../Providers/AuthProvider'
 import { TbFidgetSpinner } from 'react-icons/tb';
 import {  toast } from 'react-hot-toast';
-
-
+import GoogleLogin from '../../components/Shared/SocialLogin/Google/GoogleLogin';
 
 const Login = () => {
   const navigate = useNavigate()
@@ -17,24 +15,9 @@ const Login = () => {
 		loading, 
 		setLoading,
 		signIn,
-    googleSignIn,
     passwordReset
   } = useContext(AuthContext)
   
-
-// handle google login 
-  const handleGoogleLogin = () => { 
-    googleSignIn()
-      .then(result => { 
-       toast.success('huury! Login success!!')
-        setLoading(false)
-        navigate(from, {replace: true})
-      })
-      .catch((error) => { 
-        console.log(error.message)
-      })
-  }
-
   // handle submit button
   const handleSubmit = (event) => { 
     event.preventDefault()
@@ -143,11 +126,7 @@ const Login = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
-        <div onClick={handleGoogleLogin} className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
-          <FcGoogle size={32} />
-          <p>Continue with Google</p>
-
-        </div>
+          <GoogleLogin></GoogleLogin>
         <p className='px-6 text-sm text-center text-gray-400'>
           Don't have an account yet?{' '}
           <Link

@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
 import { useContext } from 'react'
 import { AuthContext } from '../../Providers/AuthProvider'
+import GoogleLogin from '../../components/Shared/SocialLogin/Google/GoogleLogin'
+import { TbFidgetSpinner } from 'react-icons/tb';
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -16,7 +17,6 @@ const SignUp = () => {
     updateUserProfileInfo
 
   } = useContext(AuthContext)
-
 
 
   return (
@@ -93,7 +93,7 @@ const SignUp = () => {
               type='submit'
               className='bg-rose-500 w-full rounded-md py-3 text-white'
             >
-              Continue
+             { loading? <TbFidgetSpinner className='mx-auto animate-spin' size={25}></TbFidgetSpinner> : 'Continue'}
             </button>
           </div>
         </form>
@@ -104,11 +104,9 @@ const SignUp = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
-        <div className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
-          <FcGoogle size={32} />
 
-          <p>Continue with Google</p>
-        </div>
+        {/* google login from component */}
+        <GoogleLogin></GoogleLogin>
         <p className='px-6 text-sm text-center text-gray-400'>
           Already have an account?{' '}
           <Link
